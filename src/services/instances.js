@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // define the base url for the API
-const baseURL = 'https://crm-backend-c4ub.onrender.com/api';
+const baseURL = 'https://crm-backend-im9w.onrender.com/api';
 
 // const baseURL = 'http://localhost:8000/api';
 
