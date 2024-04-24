@@ -1,0 +1,29 @@
+.logoWatermark {
+    font-family: 'alata-regular';
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    opacity: 0.6;
+    animation-name: roundaction;
+    animation-duration: 2s;
+    animation-fill-mode: forwards; /* Retains styles from last keyframe after animation ends */
+    animation-direction: normal;
+    animation-iteration-count: 1; /* Executes animation only once */
+  }
+  
+  @keyframes roundaction {
+    0% {
+        right: 1rem;
+        bottom: 30%;
+    }
+    75% {
+        right: 1rem;
+        bottom: 30%;
+    }
+    
+    100% {
+      right: 1rem;
+      bottom: 1rem;
+    }
+  }
+  
