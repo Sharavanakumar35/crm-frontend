@@ -54,7 +54,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='d-flex justify-content-between h-100' style={{background: 'aliceblue'}}>
+    <div className='d-flex justify-content-between h-100 overflow-y-scroll' style={{background: 'aliceblue'}}>
      <div className={`sidebar ${expanded && "expanded"}`}>
       {SidebarData.map((item, index) => {
         let middle = !(index === 0 || index === SidebarData.length - 1);
@@ -139,11 +139,14 @@ const Sidebar = () => {
         
       })}
     </div>
-    <div className='container-fluid m-4 d-flex justify-content-center outlet'>
-        {(currentRoute === '/dashboard/' || currentRoute === '/dashboard') && (
-              <Dashboard />
-            )}
-      <Outlet />
+
+    <div className='outlet'>
+      <div className='inner-outlet container-fluid m-4 d-flex justify-content-center'>
+          {(currentRoute === '/dashboard/' || currentRoute === '/dashboard') && (
+                <Dashboard />
+              )}
+        <Outlet />
+      </div>
     </div>
     </div>
   );

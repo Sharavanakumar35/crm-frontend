@@ -7,12 +7,45 @@ import { Modal } from 'react-bootstrap';
 import DropdownSearchBox from '../components/DropdownSearch';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import MailPass from './MailPass';
+import Pagination  from "https://cdn.skypack.dev/rc-pagination@3.1.15";
+import './Home.css';
 
 const Home = () => {
   const {user, selectedJob, setSelectedJob, jobs, deleteJob, setHandleSearchChangeFn } = useContexts();
   const [show, setShow] = useState(false);
 
   const [applicants, setApplicants] = useState([]);
+
+  const [perPage, setPerPage] = useState(2);
+    const [size, setSize] = useState(perPage);
+    const [current, setCurrent] = useState(1);
+
+    const PerPageChange = (value) => {
+        setSize(value);
+        const newPerPage = Math.ceil(datatableUsers.length / value);
+        if (current > newPerPage) {
+            setCurrent(newPerPage);
+        }
+    }
+
+    const getData = (current, pageSize) => {
+      // Normally you should get the data from the server
+      return applicants.slice((current - 1) * pageSize, current * pageSize);
+    };
+    const PaginationChange = (page, pageSize) => {
+        setCurrent(page);
+        setSize(pageSize)
+    }
+
+    const PrevNextArrow = (current, type, originalElement) => {
+        if (type === 'prev') {
+            return <button><i className="fa fa-angle-double-left"></i></button>;
+        }
+        if (type === 'next') {
+            return <button><i className="fa fa-angle-double-right"></i></button>;
+        }
+        return originalElement;
+    }
 
   const handleSearchChange = (searchTerm, attribute) => {
     // console.log(searchTerm, attribute);
@@ -99,14 +132,14 @@ const Home = () => {
                 <th scope="col">Experience</th>
                 <th scope="col">Performance</th>
                 <th scope="col">Status</th>
-                <th scope="col">Company</th>
+                <th scope="col">Current Company</th>
                 <th scope="col">Job Location</th>
                 <th scope="col">Actions</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
               {applicants.length > 0 ? (
-                applicants.map((job, index) => (
+                getData(current, size).map((job, index) => (
                   <tr key={index}>
                     <td>
                       <div className="d-flex align-items-center">
@@ -201,6 +234,17 @@ const Home = () => {
               )}
             </MDBTableBody>
           </MDBTable>
+          <Pagination
+                                    className="pagination-data"
+                                    showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
+                                    onChange={PaginationChange}
+                                    total={applicants.length}
+                                    current={current}
+                                    pageSize={size}
+                                    showSizeChanger={false}
+                                    itemRender={PrevNextArrow}
+                                    onShowSizeChange={PerPageChange}
+                                />
         </div>
       </div>
     </>

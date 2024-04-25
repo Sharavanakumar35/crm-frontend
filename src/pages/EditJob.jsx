@@ -145,7 +145,7 @@ const EditJob = ({ editMode }) => {
               </Row>
               <Row className="mb-3">   
                 <Form.Group as={Col} md="12" controlId="company">
-                  <Form.Label>Company</Form.Label>
+                  <Form.Label>Current Company</Form.Label>
                   <Form.Control
                     type="text"
                     name="company"

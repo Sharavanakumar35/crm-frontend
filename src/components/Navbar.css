@@ -16,7 +16,17 @@
   }
   .outlet {
     font-family: 'alata-regular';
-    height: 100%;
+    height: 98%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .inner-outlet {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* overflow-x: auto; */
   }
   .boxicon-container {
     width: 100%;
