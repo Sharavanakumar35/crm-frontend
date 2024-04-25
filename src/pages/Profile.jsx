@@ -17,7 +17,7 @@ const Profile = () => {
     const [isProfileEdit, setIsProfileEdit] = useState(false);
     console.log(user);
 
-    const [postImage, setPostImage] = useState( { image: user.image})
+    const [postImage, setPostImage] = useState( { image: user?.image})
 
     const createPost = async (newImage) => {
       // Assuming updateUser takes a new user object with updated image
@@ -58,11 +58,11 @@ const Profile = () => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-               Enter your Email Passkey
+            Email Credentials
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <MailPass email={user.email}/>
+            <MailPass email={user?.email}/>
           </Modal.Body>
     </Modal>
 
@@ -71,7 +71,7 @@ const Profile = () => {
 
           <label htmlFor='file-upload' className="profilePicWrapper">
           <div className="profilePicBorder">
-            <img className="profilePicImage" src={postImage.image || avatar} alt="" />
+            <img className="profilePicImage" src={postImage?.image || avatar} alt="" />
             
             <div className='edit-icon'><FaUserEdit className='faUserEdit'/></div>
           </div>
@@ -87,16 +87,16 @@ const Profile = () => {
           />
           {!isProfileEdit && <>
             <div className="profileInfo">
-            <h1>{user.role}</h1>
+            <h1>{user?.role}</h1>
           </div>
 
           <div className="profileInfo2">
-            <h3>{user.username}</h3>
-            <p className='profileInfo-email'>{user.email}</p>
+            <h3>{user?.username}</h3>
+            <p className='profileInfo-email'>{user?.email}</p>
             
             <p className="profileInfo-phone">
               <MdOutlinePhoneInTalk />
-              <span className="ms-2">{user.phone}</span>
+              <span className="ms-2">{user?.phone}</span>
             </p>
 
             <div className="profileInfo-Location">
@@ -105,12 +105,12 @@ const Profile = () => {
                   color: "#000000",
                 }}
               />
-              <span className="ms-2">{user.location}</span>
+              <span className="ms-2">{user?.location}</span>
             </div>
 
             <div className="profile-social">
               <a
-                href={user.facebookUrl}
+                href={user?.facebookUrl}
                 className="profile-social__item facebook"
                 target="_blank"
               >
@@ -122,7 +122,7 @@ const Profile = () => {
               </a>
 
               <a
-                href={user.twitterUrl}
+                href={user?.twitterUrl}
                 className="profile-social__item twitter"
                 target="_blank"
               >
@@ -134,7 +134,7 @@ const Profile = () => {
               </a>
 
               <a
-                href={user.instagramUrl}
+                href={user?.instagramUrl}
                 className="profile-social__item instagram"
                 target="_blank"
               >
@@ -179,7 +179,7 @@ const Profile = () => {
             </Button>
           }
 
-          {!user.permissions.mail && 
+          {!user?.permissions.mail && 
           <Button variant="primary" type="submit"  onClick={() => setShow(true)} className='mt-3 ms-3 editProfileBtn'>
             Enable Mail
           </Button>

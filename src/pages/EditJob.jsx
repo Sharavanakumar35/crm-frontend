@@ -99,7 +99,7 @@ const EditJob = ({ editMode }) => {
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} md="12" controlId="image">
-                  <Form.Label>Image</Form.Label>
+                  <Form.Label>Image url</Form.Label>
                   <Form.Control
                     type="text"
                     name="image"
@@ -161,7 +161,7 @@ const EditJob = ({ editMode }) => {
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} md="6" controlId="jobStatus">
-                  <Form.Label>Job Status</Form.Label>
+                  <Form.Label>Status</Form.Label>
                   <Form.Control
                     as="select"
                     type="text"
@@ -240,7 +240,7 @@ const EditJob = ({ editMode }) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Button type="submit" className="mt-3 loginBtn">Update</Button>
+              <Button type="submit" className="mt-3 loginBtn">{editMode ? 'Update' : 'Create'}</Button>
             </Form>
       </div>
 

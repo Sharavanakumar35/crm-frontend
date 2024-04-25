@@ -6,6 +6,7 @@ import EmailForm from './EmailForm';
 import { Modal } from 'react-bootstrap';
 import DropdownSearchBox from '../components/DropdownSearch';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import MailPass from './MailPass';
 
 const Home = () => {
   const {user, selectedJob, setSelectedJob, jobs, deleteJob, setHandleSearchChangeFn } = useContexts();
@@ -53,6 +54,12 @@ const Home = () => {
       deleteJob(id);
     }
   }
+
+  const handleMail = (event, job) => {
+    event.preventDefault();
+    setSelectedJob({ job });
+    setShow(true);
+  }
   
 
   return (
@@ -65,22 +72,24 @@ const Home = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Compose Mail
+            {user?.permissions.mail ? 'Compose Mail' : 'Email Credentials'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EmailForm email={selectedJob?.job?.email}></EmailForm>
+          {user?.permissions.mail ? <EmailForm email={selectedJob?.job?.email}></EmailForm>
+          : <MailPass email={user?.email} />}
+         
         </Modal.Body>
       </Modal>
 
       <div className="d-flex flex-column">
         <h1 className="text-center">My Job Applicants</h1>
-        <p className="mt-1 mb-4 text-center">Manage your job applicants</p>
+        <p className="mt-1 text-center" style={{fontSize: '20px', marginBottom: '40px', color: 'grey'}}>Manage your job applicants</p>
         <DropdownSearchBox
           searchTerm={handleSearchChange}
           handleSearchChange={handleSearchChange}
         ></DropdownSearchBox>
-        <div style={{ width: "80vw" }}>
+        <div style={{ width: "80vw", marginTop: '20px' }}>
           <MDBTable align="top" className="w-100 mt-4">
             <MDBTableHead className="table-dark">
               <tr>
@@ -144,19 +153,14 @@ const Home = () => {
                     </td>
                     <td>{job.jobLocation}</td>
                     <td>
-                      {user?.permissions.mail && (
-                        <MDBBtn
+                    <MDBBtn
                           color="info"
                           rounded
                           size="sm"
-                          onClick={() => {
-                            setSelectedJob({ job });
-                            setShow(true);
-                          }}
+                          onClick={(event) => handleMail(event, job)}
                         >
-                          Mail
+                         {user?.permissions.mail ? 'Mail' : 'Enable Mail'}
                         </MDBBtn>
-                      )}
                       {user?.permissions.edit && (
                         <Link to={`/dashboard/editJob/${job._id}`}>
                           <MDBBtn

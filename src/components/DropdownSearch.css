@@ -33,6 +33,7 @@ body {
   padding: 5px 20px 5px 40px;
   border: none;
   border-radius: 23px 0 0 23px;
+  box-shadow: 0 25px 60px rgba(113,106,147,.2);
   background-image: url(ic_search.svg);
   background-position: 15px center;
   background-size: 18px;

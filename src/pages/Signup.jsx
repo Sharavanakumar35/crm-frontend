@@ -59,9 +59,11 @@ const SignUp = () => {
       )
       .then((response) => {
         console.log(response);
+        alert("Sign up successfull");
         navigate("/login");
       })
       .catch((error) => {
+        alert("Error Signing Up: ", error.message);
         console.error(error);
       });
   };

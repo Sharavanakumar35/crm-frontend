@@ -58,10 +58,10 @@ const MailPass = ({email}) => {
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>Pass:</Form.Label>
+        <Form.Label>Password:</Form.Label>
         <Form.Control
           type="text"
-          placeholder="pass"
+          placeholder="password"
           name="pass"
           value={formData.pass}
           onChange={handleChange}
@@ -77,6 +77,9 @@ const MailPass = ({email}) => {
         Submit
       </Button>
     </Form>
+
+    <div className='mt-4' style={{color: 'grey', fontWeight: '100'}}>
+      Note: If you're using Gmail, we recommend you to enter your gmail Passkey instead of password as Gmail may block sign-in attempts from external app.    </div>
     </div>
     </>
   );
