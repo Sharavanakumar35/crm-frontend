@@ -94,7 +94,7 @@ const Home = () => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {applicants.map((job, index) => (
+        {applicants ? applicants.map((job, index) => (
             <tr key={index}>
               <td>
                 <div className='d-flex align-items-center'>
@@ -154,7 +154,11 @@ const Home = () => {
             }
               </td>
             </tr>
-          ))}
+          )) : <>
+              <tr>
+                You don't have any job applicants yet!
+              </tr>
+          </>}
       </MDBTableBody>
     </MDBTable>
     </div>
