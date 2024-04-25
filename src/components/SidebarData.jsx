@@ -5,14 +5,16 @@ import Landing from '../pages/Landing';
 const SidebarData = [
     {
       name: "CRM",
-      iconName: "grid-alt",
+      expandIcon: "expand-horizontal",
+      collapseIcon: "collapse-horizontal"
+
     },
-    // {
-    //     name: "Home",
-    //     iconName: "home",
-    //     type: "solid",
-    //     path: "home",
-    // },
+    {
+        name: "Dashboard",
+        iconName: "dashboard",
+        type: "solid",
+        path: "/dashboard",
+    },
     {
       name: "Applicants",
       iconName: "list-ul",

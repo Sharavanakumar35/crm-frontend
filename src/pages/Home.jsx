@@ -57,112 +57,148 @@ const Home = () => {
 
   return (
     <>
-    <Modal
-          show={show}
-          onHide={() => setShow(false)}
-          dialogClassName="modal-90w"
-          aria-labelledby="example-custom-modal-styling-title"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="example-custom-modal-styling-title">
-                Compose Mail
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <EmailForm email={selectedJob?.job?.email}></EmailForm>
-          </Modal.Body>
-    </Modal>
+      <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Compose Mail
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EmailForm email={selectedJob?.job?.email}></EmailForm>
+        </Modal.Body>
+      </Modal>
 
-    <div className='d-flex flex-column'>
-
-    <h1 className='text-center'>My Job Applicants</h1>
-    <p className="mt-1 mb-4 text-center">Manage your job applicants</p>
-    <DropdownSearchBox searchTerm={handleSearchChange} handleSearchChange={handleSearchChange}></DropdownSearchBox>
-    <div style={{width: '80vw'}}>
-    <MDBTable align='top' className='w-100 mt-4'>
-      <MDBTableHead className='table-dark'>
-        <tr>
-          <th scope='col'>Name</th>
-          <th scope='col'>Position</th>
-          <th scope='col'>Job Type</th>
-          <th scope='col'>Experience</th>
-          <th scope='col'>Performance</th>
-          <th scope='col'>Status</th>
-          <th scope='col'>Company</th>
-          <th scope='col'>Job Location</th>
-          <th scope='col'>Actions</th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-        {applicants ? applicants.map((job, index) => (
-            <tr key={index}>
-              <td>
-                <div className='d-flex align-items-center'>
-                  <img
-                    src={job.image}
-                    alt=''
-                    style={{ width: '45px', height: '45px' }}
-                    className='rounded-circle'
-                  />
-                  <div className='ms-3'>
-                    <p className='fw-bold mb-1'>{job.name}</p>
-                    <p className='text-muted mb-0'>{job.email}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p className='fw-normal mb-1 text-center'>{job.position}</p>
-              </td>
-              <td>
-                <p className='text-muted mb-0 text-center'>{job.jobType}</p>
-              </td>
-              <td>
-                <p className='text-muted mb-0 text-center'>{job.experience}</p>
-              </td>
-              <td>
-                <ProgressBar now={job.performance} label={`${job.performance}%`} />
-              </td>
-              <td>
-                <MDBBadge color={getStatusColor(job.jobStatus)} pill>
-                  {job.jobStatus}
-                </MDBBadge>
-              </td>
-              <td>
-                <p className='text-muted mb-0'>{job.company}</p>
-              </td>
-              <td>{job.jobLocation}</td>
-              <td>
-                {user?.permissions.mail && 
-                <MDBBtn color='info' rounded size='sm' onClick={() => {
-                  setSelectedJob({job});
-                  setShow(true);
-                }}>
-              Mail
-            </MDBBtn>}
-            {user?.permissions.edit &&
-            
-            <Link to={`/dashboard/editJob/${job._id}`}>
-              <MDBBtn color='primary' rounded size='sm' className='ms-1' >
-                Edit
-              </MDBBtn>
-            </Link>
-            }
-            {user?.permissions.delete && 
-            <MDBBtn color='danger' rounded size='sm' className='ms-1' onClick={(event) => handleDelete(event, job._id)}>
-              Delete
-            </MDBBtn>
-            }
-              </td>
-            </tr>
-          )) : <>
+      <div className="d-flex flex-column">
+        <h1 className="text-center">My Job Applicants</h1>
+        <p className="mt-1 mb-4 text-center">Manage your job applicants</p>
+        <DropdownSearchBox
+          searchTerm={handleSearchChange}
+          handleSearchChange={handleSearchChange}
+        ></DropdownSearchBox>
+        <div style={{ width: "80vw" }}>
+          <MDBTable align="top" className="w-100 mt-4">
+            <MDBTableHead className="table-dark">
               <tr>
-                You don't have any job applicants yet!
+                <th scope="col">Name</th>
+                <th scope="col">Position</th>
+                <th scope="col">Job Type</th>
+                <th scope="col">Experience</th>
+                <th scope="col">Performance</th>
+                <th scope="col">Status</th>
+                <th scope="col">Company</th>
+                <th scope="col">Job Location</th>
+                <th scope="col">Actions</th>
               </tr>
-          </>}
-      </MDBTableBody>
-    </MDBTable>
-    </div>
-    </div>
+            </MDBTableHead>
+            <MDBTableBody>
+              {applicants.length > 0 ? (
+                applicants.map((job, index) => (
+                  <tr key={index}>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={job.image}
+                          alt=""
+                          style={{ width: "45px", height: "45px" }}
+                          className="rounded-circle"
+                        />
+                        <div className="ms-3">
+                          <p className="fw-bold mb-1">{job.name}</p>
+                          <p className="text-muted mb-0">{job.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1 text-center">
+                        {job.position}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="text-muted mb-0 text-center">
+                        {job.jobType}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="text-muted mb-0 text-center">
+                        {job.experience}
+                      </p>
+                    </td>
+                    <td>
+                      <ProgressBar
+                        now={job.performance}
+                        label={`${job.performance}%`}
+                      />
+                    </td>
+                    <td>
+                      <MDBBadge color={getStatusColor(job.jobStatus)} pill>
+                        {job.jobStatus}
+                      </MDBBadge>
+                    </td>
+                    <td>
+                      <p className="text-muted mb-0">{job.company}</p>
+                    </td>
+                    <td>{job.jobLocation}</td>
+                    <td>
+                      {user?.permissions.mail && (
+                        <MDBBtn
+                          color="info"
+                          rounded
+                          size="sm"
+                          onClick={() => {
+                            setSelectedJob({ job });
+                            setShow(true);
+                          }}
+                        >
+                          Mail
+                        </MDBBtn>
+                      )}
+                      {user?.permissions.edit && (
+                        <Link to={`/dashboard/editJob/${job._id}`}>
+                          <MDBBtn
+                            color="primary"
+                            rounded
+                            size="sm"
+                            className="ms-1"
+                          >
+                            Edit
+                          </MDBBtn>
+                        </Link>
+                      )}
+                      {user?.permissions.delete && (
+                        <MDBBtn
+                          color="danger"
+                          rounded
+                          size="sm"
+                          className="ms-1"
+                          onClick={(event) => handleDelete(event, job._id)}
+                        >
+                          Delete
+                        </MDBBtn>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <>
+                  <tr>
+                    <td
+                      colSpan="9"
+                      style={{ textAlign: "center", padding: '20%' }}
+                    >
+                      You don't have any job applicants registered yet!
+                    </td>
+                  </tr>
+                </>
+              )}
+            </MDBTableBody>
+          </MDBTable>
+        </div>
+      </div>
     </>
   );
 }

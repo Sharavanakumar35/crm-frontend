@@ -70,7 +70,7 @@ const Sidebar = () => {
                 <box-icon
                   class={`${middle && "boxicon"} ${!middle && "first-and-last-trash-fix"} ${active === index && "active"}`}
                   size={changeSmall ? "sm" : "md"}
-                  name={item.iconName}
+                  name={expanded ? item.collapseIcon : item.expandIcon}
                   type={item.type}
                   color={hovered === index || active === index ? "white" : item.color}
                   animation={active === index && animate ? "tada" : ""}
