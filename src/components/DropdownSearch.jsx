@@ -29,7 +29,7 @@ function DropdownSearchBox({handleSearchChange}) {
           <details-menu className="dropdown-menu">
             <div className="dropdown-menu-header">Search By</div>
             <div className="dropdown-menu-list">
-                {['Name', 'Email', 'Company', 'Status', 'Years Experience', 'Position', 'Job Type', 'Location', 'Current Company'].map((menu, index) => {
+                {['Name', 'Email', 'Current Company', 'Status', 'Years Experience', 'Position', 'Job Type', 'Location', 'Created By'].map((menu, index) => {
                     return (
                         <label key={index} className="dropdown-menu-item">
                           <input

@@ -1,6 +1,7 @@
 import { instance, protectedInstance } from './instances';
 
 const jobServices = {
+
     // define the method to get all jobs
     getAllJobs: async () => {
         // send a GET request to the API
@@ -20,6 +21,10 @@ const jobServices = {
     updateJob: async (id, job) => {
         // send a PUT request to the API
         return protectedInstance.put(`/jobs/${id}`, job);
+    },
+
+    assignJob: async (id, job) => {
+        return protectedInstance.put(`/jobs/assignJob/${id}`, job);
     },
     // define the method to delete a job
     deleteJob: async (id) => {

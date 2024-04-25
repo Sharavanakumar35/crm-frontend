@@ -9,14 +9,23 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import MailPass from './MailPass';
 import Pagination  from "https://cdn.skypack.dev/rc-pagination@3.1.15";
 import './Home.css';
+import AssignJob from './AssignJob';
+
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 
 const Home = () => {
   const {user, selectedJob, setSelectedJob, jobs, deleteJob, setHandleSearchChangeFn } = useContexts();
-  const [show, setShow] = useState(false);
+
+  const [mailShow, setMailShow] = useState(false);
+  const [assignShow, setAssignShow] = useState(false);
+
+  const [createdBy, setCreatedBy] = useState(null);
 
   const [applicants, setApplicants] = useState([]);
 
-  const [perPage, setPerPage] = useState(2);
+  const [perPage, setPerPage] = useState(10);
     const [size, setSize] = useState(perPage);
     const [current, setCurrent] = useState(1);
 
@@ -48,10 +57,11 @@ const Home = () => {
     }
 
   const handleSearchChange = (searchTerm, attribute) => {
-    // console.log(searchTerm, attribute);
     const trimmedSearchTerm = searchTerm.trim().toLowerCase();
     const trimmedAttr = attribute.trim().toLowerCase();
     const trimmedAttribute = getAttribute(trimmedAttr);
+
+    // console.log(trimmedAttr, trimmedAttribute)
 
     let filteredApplicants;
     if (trimmedSearchTerm !== '') {
@@ -91,15 +101,33 @@ const Home = () => {
   const handleMail = (event, job) => {
     event.preventDefault();
     setSelectedJob({ job });
-    setShow(true);
+    setMailShow(true);
   }
   
+  const handleAssign = (event, jobId, jobCreatedBy) => {
+    event.preventDefault();
+    setAssignShow(true);
+    setCreatedBy({jobId: jobId, jobCreatedBy: jobCreatedBy});
+  }
+
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }));
+
 
   return (
     <>
       <Modal
-        show={show}
-        onHide={() => setShow(false)}
+        show={mailShow}
+        onHide={() => setMailShow(false)}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
       >
@@ -114,6 +142,24 @@ const Home = () => {
          
         </Modal.Body>
       </Modal>
+
+      <Modal
+        show={assignShow}
+        onHide={() => setAssignShow(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Assign applicant to:
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+         <AssignJob jobId={createdBy?.jobId} createdBy={createdBy?.jobCreatedBy} />
+        </Modal.Body>
+      </Modal>
+
+
 
       <div className="d-flex flex-column">
         <h1 className="text-center">My Job Applicants</h1>
@@ -134,6 +180,7 @@ const Home = () => {
                 <th scope="col">Status</th>
                 <th scope="col">Current Company</th>
                 <th scope="col">Job Location</th>
+                {user?.role === 'admin' && <th scope="col">Created By</th>}
                 <th scope="col">Actions</th>
               </tr>
             </MDBTableHead>
@@ -185,15 +232,34 @@ const Home = () => {
                       <p className="text-muted mb-0">{job.company}</p>
                     </td>
                     <td>{job.jobLocation}</td>
+                    {user?.role === 'admin' && <td>{job.createdBy}</td>}
                     <td>
+                  
+                    {user?.permissions.mail ? <MDBBtn
+                          color="info"
+                          rounded
+                          size="sm"
+                          onClick={(event) => handleMail(event, job)}
+                        >
+                         Mail
+                    </MDBBtn> :
+                    
+                    <HtmlTooltip
+                    title={
+                     'To proceed with emailing the applicant, please enter your email credentials by clicking the button.'
+                    }
+                  >
                     <MDBBtn
                           color="info"
                           rounded
                           size="sm"
                           onClick={(event) => handleMail(event, job)}
                         >
-                         {user?.permissions.mail ? 'Mail' : 'Enable Mail'}
-                        </MDBBtn>
+                         Enable Mail
+                    </MDBBtn>
+                  </HtmlTooltip>
+                    
+                    }
                       {user?.permissions.edit && (
                         <Link to={`/dashboard/editJob/${job._id}`}>
                           <MDBBtn
@@ -217,6 +283,19 @@ const Home = () => {
                           Delete
                         </MDBBtn>
                       )}
+                      {
+                        user?.permissions.assign && (
+                          <MDBBtn
+                          color="success"
+                          rounded
+                          size="sm"
+                          className="ms-1"
+                          onClick={(event) => handleAssign(event, job._id, job.createdBy)}
+                        >
+                          Assign To
+                        </MDBBtn>
+                        )
+                      }
                     </td>
                   </tr>
                 ))
@@ -274,8 +353,12 @@ const getAttribute = (attribute) => {
       return 'jobLocation';
     case 'status':
       return 'jobStatus';
-    case 'jobtype':
+    case 'job type':
       return 'jobType';
+    case 'current company':
+      return 'company';
+    case 'created by':
+      return 'createdBy';
     default: 
       return attribute;
   }

@@ -20,7 +20,7 @@ const EditJob = ({ editMode }) => {
   };
 
   const [formData, setFormData] = useState(formStructure);
-  const { selectedJob, setSelectedJob, getJob, updateJob, createJob } = useContexts();
+  const { user, selectedJob, setSelectedJob, getJob, updateJob, createJob } = useContexts();
   const [validated, setValidated] = useState(false);
   const {id} = useParams();
 
@@ -57,7 +57,8 @@ const EditJob = ({ editMode }) => {
       event.stopPropagation();
       setValidated(true);
     } else {
-      !editMode ? createJob(formData) : updateJob(id, formData);
+      !editMode ? createJob({ ...formData, createdBy: user.username }) : updateJob(id, formData);
+
       
     }
   };
@@ -190,6 +191,7 @@ const EditJob = ({ editMode }) => {
           value={formData.jobType}
           onChange={handleChange}
           required
+          className="inputField"
         >
           <option value="">Select Job Type</option>
           {["part-time", "full-time", "contract", "internship"]
@@ -213,6 +215,7 @@ const EditJob = ({ editMode }) => {
                   <Form.Control
                     type="double"
                     name="performance"
+                    placeholder="Performance %"
                     value={formData.performance}
                     onChange={handleChange}
                     className="inputField"

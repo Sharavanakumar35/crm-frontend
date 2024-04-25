@@ -1,13 +1,16 @@
 import React from "react";
 import dashboardAvatar from "../assets/dashboardAvatar.png";
-
+import { useContexts } from "../contextAPI/context";
 
 const Dashboard = () => {
+
+  const {user} = useContexts();
+
   return (
     <div className="dashboard">
      
         <div className="whiteBox">
-          <h1 className="welcomeMsg">Welcome Aboard!</h1>
+          <h1 className="welcomeMsg">{`Hey ${user?.username}, Welcome Aboard!`}</h1>
           <div className="p-4 text-center">
             <h2 style={{ color: "#009688", textShadow: "1px 1px black" }}>
               Let's make hiring a breeze together on a most trusted CRM platform: <span style={{color: 'black'}}>JobConnect.</span>  

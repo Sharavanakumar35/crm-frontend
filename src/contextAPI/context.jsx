@@ -12,6 +12,8 @@ export const ContextProvider = ({ children }) => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [user, setUser] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
+
   const [handleSearchChangeFn, setHandleSearchChangeFn] = useState(null);
     
   const signIn = async (username, password) => {
@@ -34,13 +36,26 @@ const signOut = async () => {
     }
 }
 
+
+const getAllUsers = async() => {
+  try {
+    const response = await userServices.getAllUsers();
+    setAllUsers(response.data.users);
+    console.log(response);
+  } catch (error) {
+    console.log("Error fetching users: ", error);
+    alert("Error fetching users");
+  }
+}
+
 const getUser = async() => {
   try {
     const response = await userServices.getUser();
     setUser(response.data.user);
     console.log(response);
   } catch (error) {
-    console.error("Error fetching profile details: ", error);
+    console.error("Error fetching profile details: ", error); 
+    alert("Error fetching profile details");
   }
 }
 
@@ -136,10 +151,20 @@ const enableMail = async(emailPass) => {
     }
   };
 
+  const assignJob = async (id, updatedJob) => {
+    try {
+      await jobServices.assignJob(id, updatedJob);
+      alert("Job assigned!");
+      getAllJobs(); // Refresh job list after update
+    } catch (error) {
+      console.error("Error updating job:", error);
+    }
+  }
+
   // Make the job data and functions available to child components
   return (
     <Context.Provider
-      value={{ user, token, updateUser, signIn, jobs, selectedJob, setSelectedJob, getAllJobs, deleteJob, createJob, updateJob, getJob, sendMail, enableMail, signOut, setHandleSearchChangeFn }}
+      value={{ user, token, updateUser, signIn, assignJob, jobs, selectedJob, setSelectedJob, getAllJobs, deleteJob, createJob, updateJob, getJob, sendMail, enableMail, signOut, setHandleSearchChangeFn }}
     >
       {children}
     </Context.Provider>

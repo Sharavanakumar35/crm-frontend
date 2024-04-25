@@ -22,6 +22,9 @@ const userServices = {
         return instance.post('/users/signup', data);
     },
 
+    getAllUsers: async () => {
+        return protectedInstance.get('/users');
+    },
     // get the currently logged in user
     getUser: async () => {
         return protectedInstance.get('/users/getUser');
