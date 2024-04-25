@@ -39,7 +39,7 @@ const Home = () => {
     setApplicants(jobs.jobs || []);
   }, [jobs]);
 
-  if (!jobs.jobs || jobs.jobs.length === 0) {
+  if (!jobs.jobs) {
     return <div>Loading...</div>;
   }
 
