@@ -5,7 +5,7 @@ import dashboardAvatar from "../assets/dashboardAvatar.png";
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <div>
+     
         <div className="whiteBox">
           <h1 className="welcomeMsg">Welcome Aboard!</h1>
           <div className="p-4 text-center">
@@ -37,7 +37,7 @@ const Dashboard = () => {
               className="mb-3"
               style={{ color: "#607D8B" }}
             >
-              Ready to start recruiting?
+              Ready to hire?
             </h3>
 
             <h5 style={{color: 'grey'}}>
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
         </div>
         
-      </div>
+
     </div>
   );
 };

@@ -117,8 +117,11 @@
   
   .expanded {
     width: 15rem;
+    /* max-width: 15rem;
+    min-width: 15rem; */
     align-items: flex-start;
   }
+  
   
   .show-description {
     opacity: 1;
