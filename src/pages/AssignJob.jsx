@@ -29,7 +29,8 @@ const  AssignJob = ({jobId, createdBy}) => {
     // Fetch user list when the component mounts
     userServices.getAllUsers()
       .then((response) => {
-        setUserList(response.data?.users || []);
+        const user_list = response.data?.users.filter(user => user.username !== createdBy);
+        setUserList(user_list || []);
       })
       .catch(error => console.error("Error fetching users: ", error.message));
   }, []);
