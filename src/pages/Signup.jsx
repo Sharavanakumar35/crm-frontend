@@ -55,7 +55,16 @@ const SignUp = () => {
     setSignUpError("");
     // Perform signup action here username, password, phone, email, location, role
 
-    signUp(formData)
+    const signUpPayload = {
+      username: formData.username,
+      password: formData.password,
+      email: formData.email,
+      phone: formData.phone,
+      location: formData.location,
+      role: formData.role,
+    }
+
+    signUp(signUpPayload)
     .then(() => {
       navigate("/login");
     })
