@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Import useState from React
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { useContexts } from '../contextAPI/context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import EmailForm from './EmailForm';
 import { Modal } from 'react-bootstrap';
 import DropdownSearchBox from '../components/DropdownSearch';
@@ -26,8 +26,10 @@ const Home = () => {
   const [applicants, setApplicants] = useState([]);
 
   const [perPage, setPerPage] = useState(10);
-    const [size, setSize] = useState(perPage);
-    const [current, setCurrent] = useState(1);
+  const [size, setSize] = useState(perPage);
+  const [current, setCurrent] = useState(1);
+
+  const navigate = useNavigate();
 
     const PerPageChange = (value) => {
         setSize(value);
@@ -110,6 +112,11 @@ const Home = () => {
     setCreatedBy({jobId: jobId, jobCreatedBy: jobCreatedBy});
   }
 
+
+  const handleEdit = (event, jobId) => {
+      event.preventDefault();
+      navigate(`/dashboard/editJob/${jobId}`);
+  }
   const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -260,17 +267,16 @@ const Home = () => {
                   </HtmlTooltip>
                     
                     }
-                      {user?.permissions.edit && (
-                        <Link to={`/dashboard/editJob/${job._id}`}>
+                      {user?.permissions.edit && (       
                           <MDBBtn
                             color="primary"
                             rounded
                             size="sm"
                             className="ms-1"
+                            onClick={(event) => handleEdit(event, job._id)}
                           >
                             Edit
                           </MDBBtn>
-                        </Link>
                       )}
                       {user?.permissions.delete && (
                         <MDBBtn
