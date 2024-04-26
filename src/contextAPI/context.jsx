@@ -199,6 +199,18 @@ export const ContextProvider = ({ children }) => {
   const [alerts, setAlerts] = useState([]);
   const [handleSearchChangeFn, setHandleSearchChangeFn] = useState(null);
 
+
+  const signUp = async (formData) => {
+
+    try {
+      await userServices.signup(formData);
+      setAlerts([...alerts, {type: 'success', message: 'Signup successfull'}]) 
+    } catch (error) {
+      console.error("Error signing up:", error);
+      setAlerts([...alerts, {type: 'error', message: error.response.data.message}]);
+    }
+  }
+
   const signIn = async (username, password) => {
     try {
       const response = await userServices.signin(username, password);
@@ -362,7 +374,7 @@ export const ContextProvider = ({ children }) => {
   // Make the job data and functions available to child components
   return (
     <Context.Provider
-      value={{ user, token, updateUser, signIn, assignJob, jobs, selectedJob, setSelectedJob, getAllJobs, deleteJob, createJob, updateJob, getJob, sendMail, enableMail, signOut, setHandleSearchChangeFn }}
+      value={{ signUp, user, token, setToken, updateUser, alerts, setAlerts, assignJob, jobs, selectedJob, setSelectedJob, getAllJobs, deleteJob, createJob, updateJob, getJob, sendMail, enableMail, signOut, setHandleSearchChangeFn }}
     >
       {alerts.map((alert, index) => (
         <Alert key={index} variant="filled" severity={alert.type} style={{position: 'absolute', top: '1rem', right: '1rem'}}>

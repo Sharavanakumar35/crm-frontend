@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import userServices from "../services/userServices";
 import { FileUploader } from "react-drag-drop-files";
 import avatar from '../assets/avatar.png'
+import { useContexts } from "../contextAPI/context";
+
+
+
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,6 +22,8 @@ const SignUp = () => {
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const [signUpError, setSignUpError] = useState("");
   const navigate = useNavigate();
+
+  const {signUp} = useContexts();
 
   const fileTypes = ["JPG", "PNG", "GIF", "PDF"];
 
@@ -48,24 +54,14 @@ const SignUp = () => {
     console.log(formData);
     setSignUpError("");
     // Perform signup action here username, password, phone, email, location, role
-    userServices
-      .signup(
-        formData.username,
-        formData.password,
-        formData.phone,
-        formData.email,
-        formData.location,
-        formData.role
-      )
-      .then((response) => {
-        console.log(response);
-        alert("Sign up successfull");
-        navigate("/login");
-      })
-      .catch((error) => {
-        alert("Error Signing Up: ", error.message);
-        console.error(error);
-      });
+
+    signUp(formData)
+    .then(() => {
+      navigate("/login");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
