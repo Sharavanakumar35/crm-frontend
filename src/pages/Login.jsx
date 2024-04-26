@@ -134,13 +134,14 @@
 // export default Login;
 
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
 import userServices from '../services/userServices';
 import { useContexts } from '../contextAPI/context';
+import { Alert } from '@mui/material';
 
 const Login = () => {
   const [validated, setValidated] = useState(false);
