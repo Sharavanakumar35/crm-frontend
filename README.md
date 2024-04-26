@@ -36,9 +36,14 @@ To start using CRM JobConnect, follow these simple steps:
 
 ![Screenshot 2024-04-26 151601](https://github.com/Sharavanakumar35/crm-frontend/assets/136878187/dfbec15b-2611-4ebc-a3f4-d226d34c2e93)
 
-## MY JOB APPLICANTS
+## MY JOB APPLICANTS (ADMIN)
 
 ![Screenshot 2024-04-26 151513](https://github.com/Sharavanakumar35/crm-frontend/assets/136878187/41786d87-c37d-4a41-b126-4f881c1dacd1)
+
+## MY JOB APPLICANTS (USER)
+
+![Screenshot 2024-04-26 152223](https://github.com/Sharavanakumar35/crm-frontend/assets/136878187/e858e891-e2f1-49ba-a8e2-05fb97d9bf1f)
+
 
 That's it! You're all set to get started with CRM JobConnect. If you encounter any issues or have any questions, feel free to reach out.
 
