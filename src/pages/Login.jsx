@@ -41,6 +41,7 @@ const Login = () => {
     })
     .catch(error => {
       setLoginError('Invalid email or password');
+      alert("Invalid Email or Password")
     })   
   };
 

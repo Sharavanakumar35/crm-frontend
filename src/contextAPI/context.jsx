@@ -82,9 +82,11 @@ const enableMail = async(emailPass) => {
 }
   // Effect to fetch job data when component mounts
   useEffect(() => {
-    getAllJobs();
-    getUser();
-  }, []);
+    if (token) {
+      getAllJobs();
+      getUser();
+    }
+  }, [token]);
 
   // Function to fetch all jobs
   const getAllJobs = async () => {
