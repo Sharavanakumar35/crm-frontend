@@ -35,13 +35,12 @@ const Login = () => {
     setValidated(true);
 
     signIn(formData.username, formData.password)
-    .then(() => {
+    .then(res => {
       setLoginError('');
       navigate('/dashboard')
     })
     .catch(error => {
-      setLoginError('Invalid email or password');
-      alert("Invalid Email or Password")
+      setLoginError('Enter valid username and password');
     })   
   };
 

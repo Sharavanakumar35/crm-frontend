@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import userServices from '../services/userServices';
+import { MDBBtn } from 'mdb-react-ui-kit';
 
 import { useContexts } from '../contextAPI/context';
 
@@ -75,9 +76,15 @@ const  AssignJob = ({jobId, createdBy}) => {
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.role}</TableCell>
                     <TableCell>
-                      <Button variant="contained" color="success" onClick={(event) => handleAssign(event, user)}>
-                        Assign
-                      </Button>
+                      <MDBBtn
+                          color="success"
+                          rounded
+                          size="sm"
+                          className="ms-1"
+                          onClick={(event) => handleAssign(event, user)}
+                        >
+                          Assign
+                        </MDBBtn>
                     </TableCell>
                   </TableRow>
                 );
