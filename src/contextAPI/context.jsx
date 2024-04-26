@@ -200,10 +200,10 @@ export const ContextProvider = ({ children }) => {
   const [handleSearchChangeFn, setHandleSearchChangeFn] = useState(null);
 
 
-  const signUp = async (formData) => {
+  const signUp = async (payload) => {
 
     try {
-      await userServices.signup(formData);
+      await userServices.signup(payload);
       setAlerts([...alerts, {type: 'success', message: 'Signup successfull'}]) 
     } catch (error) {
       console.error("Error signing up:", error);

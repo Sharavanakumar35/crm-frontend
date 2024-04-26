@@ -51,7 +51,6 @@ const SignUp = () => {
     }
 
     // Simulating signup process
-    console.log(formData);
     setSignUpError("");
     // Perform signup action here username, password, phone, email, location, role
 

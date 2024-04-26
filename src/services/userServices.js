@@ -13,13 +13,9 @@ const userServices = {
         return instance.post('/users/signin', data, {withCredentials: true});
     },
     // define the register method
-    signup: async (username, password, phone, email, location, role) => {
-        // define the data to be sent to the API
-        const data = {
-            username, password, phone, email, location, role
-        };
+    signup: async (payload) => {
         // send a POST request to the API
-        return instance.post('/users/signup', data);
+        return instance.post('/users/signup', payload);
     },
 
     getAllUsers: async () => {
