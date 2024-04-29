@@ -180,7 +180,7 @@ const Login = () => {
       setAlerts([...alerts, { type: 'success', message: 'Login Successful' }])
       navigate('/dashboard');
     } catch (error) {
-      setLoginError(error.response.data.message);
+      setLoginError(error.response?.data?.message);
       setValidated(false);
     }
   };
