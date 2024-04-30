@@ -38,10 +38,6 @@ const EmailForm = ({email}) => {
       setValidated(true);
       return;
     }
-
-    // Simulating email sending process
-    console.log(formData);
-    console.log(file);
     
     sendMail(formData.to, formData.subject, formData.message,null,null);
 

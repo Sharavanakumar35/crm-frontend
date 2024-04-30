@@ -25,7 +25,6 @@ const EditJob = ({ editMode }) => {
   const {id} = useParams();
 
   useEffect(() => {
-    console.log(editMode);
     if (id && editMode) {
       getJob(id);
     } else {

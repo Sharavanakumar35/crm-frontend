@@ -239,7 +239,6 @@ export const ContextProvider = ({ children }) => {
       const response = await userServices.getAllUsers();
       setAllUsers(response.data.users);
     } catch (error) {
-      console.log("Error fetching users: ", error);
       setAlerts([...alerts, { type: 'error', message: 'Error fetching users' }]);
     }
   }
@@ -255,7 +254,6 @@ export const ContextProvider = ({ children }) => {
   }
 
   const updateUser = async(editedUser) => {
-    console.log(editedUser);
     try {
       await userServices.updateUser(editedUser);
       setAlerts([...alerts, { type: 'success', message: 'Profile Updated' }]);
@@ -267,7 +265,6 @@ export const ContextProvider = ({ children }) => {
   }
 
   const enableMail = async(emailPass) => {
-    console.log(emailPass);
     try {
       await userServices.enableMail(emailPass);
       setAlerts([...alerts, { type: 'success', message: 'Email Pass Updated' }]);

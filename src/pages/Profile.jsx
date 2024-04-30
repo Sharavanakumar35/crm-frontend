@@ -15,7 +15,6 @@ const Profile = () => {
     const [show, setShow] = useState(false);
 
     const [isProfileEdit, setIsProfileEdit] = useState(false);
-    console.log(user);
 
     const [postImage, setPostImage] = useState( { image: user?.image})
 
@@ -28,16 +27,8 @@ const Profile = () => {
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
       const base64 = await convertToBase64(file); // Assuming convertToBase64 is defined somewhere
-      console.log(base64);
       setPostImage({ ...postImage, image : base64 })
       setIsEdit(true);
-      // if (base64 && base64 !== '' ) {
-      //   const isConfirmed = window.confirm("Click Ok to upload the profile picture");
-      //   if (isConfirmed) {
-      //     console
-      //     createPost(postImage.image);
-      //   }
-      // }
     }
   
     useEffect (() => {

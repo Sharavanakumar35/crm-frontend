@@ -30,9 +30,6 @@ const MailPass = ({email}) => {
       setValidated(true);
       return;
     }
-
-    // Simulating login process
-    console.log(formData);
     setSubError('');
 
     enableMail(formData);

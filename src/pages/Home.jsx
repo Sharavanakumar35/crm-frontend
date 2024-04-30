@@ -63,7 +63,6 @@ const Home = () => {
     const trimmedAttr = attribute.trim().toLowerCase();
     const trimmedAttribute = getAttribute(trimmedAttr);
 
-    // console.log(trimmedAttr, trimmedAttribute)
 
     let filteredApplicants;
     if (trimmedSearchTerm !== '') {
@@ -92,7 +91,6 @@ const Home = () => {
   
   const handleDelete = (event, id) => {
     event.preventDefault();
-    console.log("Delete function called")
     const isConfirmed = window.confirm("Are you sure you want to delete this job?");
   
     if (isConfirmed) {
@@ -353,7 +351,6 @@ const getStatusColor = (status) => {
 export default Home;
 
 const getAttribute = (attribute) => {
-  console.log('attribute = ', attribute);
   switch (attribute) {
     case 'location':
       return 'jobLocation';

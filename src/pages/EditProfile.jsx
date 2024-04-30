@@ -7,7 +7,6 @@ const EditProfile = ({setIsProfileEdit}) => {
   const [formData, setFormData] = useState(user);
   const [validated, setValidated] = useState(false);
 
-  console.log('editProfileUser = ', user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,10 +25,6 @@ const EditProfile = ({setIsProfileEdit}) => {
       setValidated(true);
       return;
     }
-
-    // Submit the form data
-    console.log(formData);
-
     const isConfirmed = window.confirm("Are you sure to change the profile details?");
         if (isConfirmed) {
           updateUser(formData);
